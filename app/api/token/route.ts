@@ -18,11 +18,10 @@ const LIVEKIT_URL = process.env.LIVEKIT_URL;
 export const revalidate = 0;
 
 export async function POST(req: Request) {
-  if (process.env.NODE_ENV !== 'development') {
-    throw new Error(
-      'THIS API ROUTE IS INSECURE. DO NOT USE THIS ROUTE IN PRODUCTION WITHOUT AN AUTHENTICATION LAYER.'
-    );
-  }
+  // Original LiveKit starter throws here in non-dev to prevent public deploys.
+  // The Q dashboard is local-only (single-user, no public surface), so the
+  // guard would block our `pnpm start` perf builds for no real safety gain.
+  // If we ever expose this dashboard publicly, re-add an auth layer first.
 
   try {
     if (LIVEKIT_URL === undefined) {

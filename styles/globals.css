@@ -122,3 +122,27 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* ─── Q Dashboard custom animations ───────────────────────── */
+@keyframes qc-spin-cw {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes qc-spin-ccw {
+  from { transform: rotate(360deg); }
+  to   { transform: rotate(0deg); }
+}
+@keyframes qc-ripple {
+  0%   { transform: scale(1);    opacity: 0.6; }
+  100% { transform: scale(2.2);  opacity: 0;   }
+}
+@keyframes qc-scan {
+  0%   { top: -2%;   opacity: 0; }
+  4%   { opacity: 0.7; }
+  96%  { opacity: 0.7; }
+  100% { top: 102%;  opacity: 0; }
+}
+@keyframes qc-tile-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

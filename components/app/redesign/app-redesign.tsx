@@ -7,7 +7,7 @@ import { WarningIcon } from '@phosphor-icons/react/dist/ssr';
 import type { AppConfig } from '@/app-config';
 import { AgentSessionProvider } from '@/components/agents-ui/agent-session-provider';
 import { StartAudioButton } from '@/components/agents-ui/start-audio-button';
-import { ViewController } from '@/components/app/view-controller';
+import { QCDashboardV2 } from '@/components/app/redesign/qc-dashboard-v2';
 import { Toaster } from '@/components/ui/sonner';
 import { useAgentErrors } from '@/hooks/useAgentErrors';
 import { useDebugMode } from '@/hooks/useDebug';
@@ -18,15 +18,14 @@ const IN_DEVELOPMENT = process.env.NODE_ENV !== 'production';
 function AppSetup() {
   useDebugMode({ enabled: IN_DEVELOPMENT });
   useAgentErrors();
-
   return null;
 }
 
-interface AppProps {
+interface AppRedesignProps {
   appConfig: AppConfig;
 }
 
-export function App({ appConfig }: AppProps) {
+export function AppRedesign({ appConfig }: AppRedesignProps) {
   const tokenSource = useMemo(() => {
     return typeof process.env.NEXT_PUBLIC_CONN_DETAILS_ENDPOINT === 'string'
       ? getSandboxTokenSource(appConfig)
@@ -42,13 +41,11 @@ export function App({ appConfig }: AppProps) {
     <AgentSessionProvider session={session}>
       <AppSetup />
       <main className="min-h-svh w-full">
-        <ViewController appConfig={appConfig} />
+        <QCDashboardV2 appConfig={appConfig} />
       </main>
       <StartAudioButton label="Start Audio" />
       <Toaster
-        icons={{
-          warning: <WarningIcon weight="bold" />,
-        }}
+        icons={{ warning: <WarningIcon weight="bold" /> }}
         position="top-center"
         className="toaster group"
         style={
